@@ -10,6 +10,10 @@ on:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./packages/vuepress-plugin-auto-sidebar
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -17,8 +21,6 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-        working-directory: ./packages/vuepress-plugin-auto-sidebar
       - run: npm publish
-        working-directory: ./packages/vuepress-plugin-auto-sidebar
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
